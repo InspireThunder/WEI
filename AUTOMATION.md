@@ -10,6 +10,12 @@
 
 每天运行后只能更新这个固定入口为每日列表页，不要生成带日期的新首页链接；用户先打开列表，再点击进入 `daily/YYYY-MM-DD.html`。
 
+公网入口是：
+
+`https://inspirethunder.github.io/WEI/`
+
+每天生成本地文件后，必须提交并推送到 GitHub 仓库 `InspireThunder/WEI` 的 `main` 分支，让 GitHub Pages 公网链接同步更新。不要在仓库中保存 token、密码或任何凭据信息。
+
 ## 内容要求
 
 - 覆盖最近 24 小时内公开可访问的 AI 资讯，必须同时检索英文来源和中国资讯网站来源。
@@ -86,3 +92,16 @@ node scripts/build-site.mjs
 ```
 
 脚本会重新生成 `index.html`、`archive.html` 和 `daily/YYYY-MM-DD.html`，并保留历史归档。`index.html` 必须始终作为用户每天打开的固定一级列表入口；每日详情页必须通过列表链接进入。
+
+## 发布
+
+生成并验证页面后执行发布流程：
+
+```bash
+git add data daily index.html archive.html
+git commit -m "Update AI news YYYY-MM-DD"
+git pull --rebase origin main
+git push origin main
+```
+
+如果没有文件变化，不要创建空提交。如果 `git push` 因凭据过期失败，保留本地文件并在报告中明确说明公网未同步。
